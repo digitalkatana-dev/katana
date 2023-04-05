@@ -20,7 +20,7 @@ const Navbar = () => {
 				{user ? (
 					<>
 						<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-							Hello, {user.firstName}!
+							Hello, {user.name}!
 						</Typography>
 						<Button color='inherit' onClick={handleLogout}>
 							Logout

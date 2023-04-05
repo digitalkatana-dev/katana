@@ -12,6 +12,7 @@ import {
 	register,
 	login,
 	setAuthType,
+	setName,
 	setEmail,
 	setPassword,
 	setShow,
@@ -25,9 +26,8 @@ import TextInput from '../components/TextInput';
 import Button from '../components/Button';
 
 const Auth = () => {
-	const { loading, authType, email, password, show, errors } = useSelector(
-		(state) => state.auth
-	);
+	const { loading, authType, name, email, password, show, errors } =
+		useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
 	const handleChange = (input, value) => {
@@ -35,6 +35,10 @@ const Auth = () => {
 			case 'toggle':
 				dispatch(clearErrors());
 				dispatch(setAuthType(value));
+				break;
+
+			case 'name':
+				dispatch(setName(value));
 				break;
 
 			case 'email':
@@ -58,7 +62,19 @@ const Auth = () => {
 			password,
 		};
 
-		authType === 'Login' ? dispatch(login(data)) : dispatch(register(data));
+		switch (authType) {
+			case 'Login':
+				dispatch(login(data));
+				break;
+
+			case 'Register':
+				data.name = name;
+				dispatch(register(data));
+				break;
+
+			default:
+				break;
+		}
 	};
 
 	return (
@@ -82,6 +98,22 @@ const Auth = () => {
 					</TouchableOpacity>
 					<form onSubmit={handleSubmit}>
 						<FormControl variant='standard'>
+							{authType === 'Register' && (
+								<>
+									<TextInput
+										label='Name'
+										size='small'
+										margin='dense'
+										fullWidth
+										value={name}
+										onChange={(e) => handleChange('name', e.target.value)}
+										onFocus={() => dispatch(clearErrors)}
+									/>
+									{errors && errors.name && (
+										<h6 style={styles.error}>{errors.name}</h6>
+									)}
+								</>
+							)}
 							<TextInput
 								label='Email'
 								size='small'

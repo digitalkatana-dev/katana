@@ -65,6 +65,7 @@ export const authAdapter = createEntityAdapter();
 const initialState = authAdapter.getInitialState({
 	loading: false,
 	authType: 'Login',
+	name: '',
 	email: '',
 	password: '',
 	show: false,
@@ -79,6 +80,9 @@ export const authSlice = createSlice({
 	reducers: {
 		setAuthType: (state, action) => {
 			state.authType = action.payload;
+		},
+		setName: (state, action) => {
+			state.name = action.payload;
 		},
 		setEmail: (state, action) => {
 			state.email = action.payload;
@@ -101,12 +105,14 @@ export const authSlice = createSlice({
 		logout: (state) => {
 			state.loading = false;
 			state.authType = 'Login';
+			state.name = '';
 			state.email = '';
 			state.password = '';
 			state.user = null;
 			state.success = null;
 			state.errors = null;
 			localStorage.removeItem('token');
+			window.location = '/';
 		},
 	},
 	extraReducers: (builder) => {
@@ -117,6 +123,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(register.fulfilled, (state, action) => {
 				state.loading = false;
+				state.name = '';
 				state.email = '';
 				state.password = '';
 				state.user = action.payload;
@@ -176,6 +183,7 @@ export const authSlice = createSlice({
 
 export const {
 	setAuthType,
+	setName,
 	setEmail,
 	setPassword,
 	setShow,
