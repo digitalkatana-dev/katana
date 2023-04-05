@@ -6,13 +6,20 @@ import {
 	Route,
 	Navigate,
 } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Auth from './features/Auth';
+import ResetPassword from './features/ResetPassword';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
 
 	return (
 		<Router>
-			<Routes></Routes>
+			<Navbar />
+			<Routes>
+				<Route path='/' element={<Auth />} />
+				<Route path='/reset-password/:id' element={<ResetPassword />} />
+			</Routes>
 		</Router>
 	);
 }
