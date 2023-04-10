@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
 	Table,
 	TableBody,
@@ -55,44 +55,62 @@ const HomeTable = () => {
 
 	return (
 		<View>
-			<TableContainer component={Paper}>
+			<TableContainer style={styles.table} component={Paper}>
+				<div style={styles.header}>
+					<h4 style={styles.txt}>{selectedYear} Year Summary</h4>
+				</div>
 				<Table sx={{ minWidth: 650 }}>
 					<TableHead>
-						<Text style={styles.txt}>{selectedYear} Year Summary</Text>
-					</TableHead>
-					<TableHead>
 						<TableRow>
-							<TableCell align='center'>Month</TableCell>
-							<TableCell align='center'>Expenses</TableCell>
-							<TableCell align='center'>Revenue</TableCell>
-							<TableCell align='center'>Profit</TableCell>
+							<TableCell align='center' style={styles.cell}>
+								Month
+							</TableCell>
+							<TableCell align='center' style={styles.cell}>
+								Expenses
+							</TableCell>
+							<TableCell align='center' style={styles.cell}>
+								Revenue
+							</TableCell>
+							<TableCell align='center' style={styles.cell}>
+								Profit
+							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{rows(tableData(months)).map((row) => (
-							<TableRow
-								key={row.id}
-								sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-							>
+							<TableRow key={row.id}>
 								<TableCell component='th' scope='row' align='center'>
 									{row.month}
 								</TableCell>
-								<TableCell align='center'>{row.expenses}</TableCell>
-								<TableCell align='center'>{row.revenue}</TableCell>
-								<TableCell align='center'>{row.profit}</TableCell>
+								<TableCell align='center' style={styles.cell}>
+									{row.expenses}
+								</TableCell>
+								<TableCell align='center' style={styles.cell}>
+									{row.revenue}
+								</TableCell>
+								<TableCell align='center' style={styles.cell}>
+									{row.profit}
+								</TableCell>
 							</TableRow>
 						))}
-						<TableRow>
-							<TableCell component='th' scope='row' align='center'>
+						<TableRow
+							sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+						>
+							<TableCell
+								component='th'
+								scope='row'
+								align='center'
+								style={styles.cell}
+							>
 								Totals
 							</TableCell>
-							<TableCell align='center'>{`$${totalExp(
+							<TableCell align='center' style={styles.cell}>{`$${totalExp(
 								tableData(months)
 							)}`}</TableCell>
-							<TableCell align='center'>{`$${totalRev(
+							<TableCell align='center' style={styles.cell}>{`$${totalRev(
 								tableData(months)
 							)}`}</TableCell>
-							<TableCell align='center'>{`$${totalProfit(
+							<TableCell align='center' style={styles.cell}>{`$${totalProfit(
 								tableData(months)
 							)}`}</TableCell>
 						</TableRow>
@@ -106,6 +124,21 @@ const HomeTable = () => {
 export default HomeTable;
 
 const styles = StyleSheet.create({
+	table: {
+		backgroundColor: '#16161a',
+	},
+	header: {
+		border: '2px solid indigo',
+		borderTopWidth: 0,
+		borderLeftWidth: 0,
+		borderRightWidth: 0,
+		color: 'whitesmoke',
+		padding: 10,
+		textAlign: 'center',
+	},
+	cell: {
+		color: 'whitesmoke',
+	},
 	link: {
 		textDecorationLine: 'none',
 		color: 'steelblue',

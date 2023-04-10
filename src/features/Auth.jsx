@@ -144,7 +144,11 @@ const Auth = () => {
 												onMouseDown={(e) => e.preventDefault()}
 												edge='end'
 											>
-												{show ? <VisibilityOff /> : <Visibility />}
+												{show ? (
+													<VisibilityOff style={styles.viewIcon} />
+												) : (
+													<Visibility style={styles.viewIcon} />
+												)}
 											</IconButton>
 										</InputAdornment>
 									),
@@ -189,6 +193,9 @@ const styles = StyleSheet.create({
 	icon: {
 		color: 'green',
 		alignSelf: 'center',
+	},
+	viewIcon: {
+		color: 'grey',
 	},
 	link: {
 		textDecorationLine: 'none',

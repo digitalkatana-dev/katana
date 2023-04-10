@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Card, CardContent } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ const Dashboard = () => {
 		<View style={styles.canvas}>
 			<Card style={styles.card}>
 				<CardContent style={styles.container}>
-					<h2>What Do You Want To Do?</h2>
+					<h2 style={styles.title}>What Do You Want To Do?</h2>
 					<View style={styles.hr} />
 					<View>
 						<Link style={styles.link} to='/accounting'>
@@ -39,27 +39,14 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		textAlign: 'center',
 	},
+	title: {
+		color: 'whitesmoke',
+	},
 	hr: {
 		width: '100%',
 		borderBottomWidth: 2,
 		borderBottomColor: 'whitesmoke',
 		marginVertical: 5,
-	},
-	title: {
-		color: 'whitesmoke',
-	},
-	lock: {
-		color: 'steelblue',
-		alignSelf: 'center',
-	},
-	icon: {
-		alignSelf: 'center',
-	},
-	success: {
-		color: 'green',
-	},
-	fail: {
-		color: 'red',
 	},
 	link: {
 		textDecorationLine: 'none',
