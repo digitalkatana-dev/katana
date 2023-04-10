@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { Card, CardContent, IconButton } from '@mui/material';
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	setEntryType,
@@ -16,6 +17,7 @@ import {
 	setStartBal,
 	setTotalRev,
 	setTotalExp,
+	setMonth,
 } from '../../../redux/slices/accountingSlice';
 import { doTheMath, profit } from '../../../util/helpers';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -24,7 +26,7 @@ import TextInput from '../../../components/TextInput';
 
 const MonthScreen = () => {
 	const {
-		loading,
+		// loading,
 		selectedYear,
 		year,
 		month,
@@ -40,6 +42,11 @@ const MonthScreen = () => {
 	const pro = parseFloat(profit(totalRev, totalExp));
 	const endBal = start + pro;
 	const balInput = useRef(null);
+
+	const handleBack = () => {
+		dispatch(setMonth(null));
+		dispatch(setEntryType(''));
+	};
 
 	const handleChange = (input, value) => {
 		switch (input) {
@@ -78,15 +85,18 @@ const MonthScreen = () => {
 
 	return (
 		<View style={styles.canvas}>
-			<Text>{month.name + ' ' + selectedYear}</Text>
+			<Link style={styles.back} to='/accounting' onClick={handleBack}>
+				Back
+			</Link>
+			<h4 style={styles.header}>{month.name + ' ' + selectedYear}</h4>
 			<Card style={styles.card}>
 				<CardContent style={styles.container}>
 					<View style={styles.row}>
 						<View style={styles.starting}>
-							<Text>Starting Bal: </Text>
+							<Text style={styles.txt}>Starting Bal: </Text>
 							{month.startBal === 0 && !show ? (
 								<TouchableOpacity onPress={() => dispatch(setShow(true))}>
-									<Text>Set Starting Bal</Text>
+									<Text style={styles.txt}>Set Starting Bal</Text>
 								</TouchableOpacity>
 							) : show ? (
 								<TextInput
@@ -99,27 +109,32 @@ const MonthScreen = () => {
 								/>
 							) : month.startBal !== 0 ? (
 								<TouchableOpacity onPress={() => dispatch(setShow())}>
-									<Text>${startBal}</Text>
+									<Text style={styles.txt}>${startBal}</Text>
 								</TouchableOpacity>
 							) : null}
 							{!hidden && (
 								<IconButton onClick={handleStartBal}>
-									<AddCircleOutlineIcon />
+									<AddCircleOutlineIcon style={styles.icon} />
 								</IconButton>
 							)}
 						</View>
-						<Text>Expenses: ${totalExp}</Text>
+						<Text style={styles.txt}>Expenses: ${totalExp}</Text>
+					</View>
+					<View style={styles.overRev}>
+						<Text style={styles.txt}>Revenue: ${totalRev}</Text>
 					</View>
 					<View style={styles.row}>
-						<Text>Revenue: ${totalRev}</Text>
-					</View>
-					<View style={styles.row}>
-						<Text>Ending Bal: ${endBal}</Text>
-						<Text>Profit: ${profit(totalRev, totalExp)}</Text>
+						<Text style={styles.txt}>Ending Bal: ${endBal}</Text>
+						<Text style={styles.txt}>
+							Profit: ${profit(totalRev, totalExp)}
+						</Text>
 					</View>
 				</CardContent>
 			</Card>
-			<select onChange={(e) => handleChange('entryType', e.target.value)}>
+			<select
+				style={styles.select}
+				onChange={(e) => handleChange('entryType', e.target.value)}
+			>
 				<option value=''>Choose...</option>
 				<option value='Expenses'>Expenses</option>
 				<option value='Revenue'>Revenue</option>
@@ -136,6 +151,18 @@ const styles = StyleSheet.create({
 		height: 'calc(100vh - 64px)',
 		justifyContent: 'center',
 		alignItems: 'center',
+		position: 'relative',
+	},
+	back: {
+		position: 'absolute',
+		top: 20,
+		left: 30,
+		color: 'dodgerblue',
+		textDecorationLine: 'none',
+	},
+	header: {
+		marginTop: 40,
+		marginBottom: 20,
 	},
 	card: {
 		width: '80%',
@@ -143,22 +170,33 @@ const styles = StyleSheet.create({
 		padding: 20,
 		backgroundColor: '#16161a',
 	},
-	container: {
-		// display: 'flex',
-		// justifyContent: 'space-between',
-		// flexDirection: 'column',
-		// alignItems: 'center',
-		// textAlign: 'center',
-	},
 	row: {
 		width: '100%',
-		borderWidth: 1,
-		borderColor: 'green',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 	},
 	starting: {
 		flexDirection: 'row',
 		alignItems: 'center',
+	},
+	txt: {
+		color: 'whitesmoke',
+	},
+	icon: {
+		color: 'green',
+	},
+	overRev: {
+		marginVertical: 10,
+		alignItems: 'flex-end',
+	},
+	select: {
+		backgroundColor: '#16161a',
+		borderRadius: 20,
+		color: 'whitesmoke',
+		fontSize: 15,
+		marginTop: 15,
+		marginBottom: 15,
+		padding: 5,
+		textAlign: 'center',
 	},
 });

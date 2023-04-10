@@ -37,7 +37,7 @@ export const updateYear = createAsyncThunk(
 export const accountingAdapter = createEntityAdapter();
 const initialState = accountingAdapter.getInitialState({
 	loading: false,
-	selectedYear: '',
+	selectedYear: new Date().getFullYear().toString(),
 	year: null,
 	month: null,
 	startBal: 0,
@@ -63,7 +63,14 @@ export const accountingSlice = createSlice({
 	initialState,
 	reducers: {
 		setSelectedYear: (state, action) => {
-			state.selectedYear = action.payload;
+			if (action.payload === '') {
+				state.selectedYear = initialState.selectedYear;
+				state.year = null;
+				state.totalExp = 0;
+				state.totalRev = 0;
+			} else {
+				state.selectedYear = action.payload;
+			}
 		},
 		setMonth: (state, action) => {
 			state.month = action.payload;

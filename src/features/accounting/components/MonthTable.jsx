@@ -107,17 +107,12 @@ const MonthTable = () => {
 
 	const tabelData = () => {
 		let row = [];
-		const items = (data) => (
-			<Text ellipsizeMode='tail' numberOfLines={1} style={styles.items}>
-				{data.item}
-			</Text>
-		);
 		if (entryType === 'Expenses') {
 			month.expenses.forEach((item) => {
 				row.push({
 					_id: item.id,
 					date: item.date,
-					item: items(item),
+					item: item.item,
 					amount: `$${item.amount.toFixed(2)}`,
 					notes: item.notes,
 				});
@@ -127,7 +122,7 @@ const MonthTable = () => {
 				row.push({
 					_id: item.id,
 					date: item.date,
-					item: items(item),
+					item: item.item,
 					amount: `$${item.amount.toFixed(2)}`,
 					notes: item.notes,
 				});
@@ -148,9 +143,9 @@ const MonthTable = () => {
 	};
 
 	return (
-		<TableContainer component={Paper}>
+		<TableContainer style={styles.table} component={Paper}>
 			<View style={tableTop}>
-				<Text>{entryType}</Text>
+				<Text style={styles.outerTxt}>{entryType}</Text>
 				<IconButton style={styles.add} onClick={handleAdd}>
 					<AddBoxIcon />
 				</IconButton>
@@ -158,10 +153,18 @@ const MonthTable = () => {
 			<Table sx={{ minWidth: 400 }}>
 				<TableHead>
 					<TableRow>
-						<TableCell align='center'>Date</TableCell>
-						<TableCell align='center'>Item</TableCell>
-						<TableCell align='center'>Amount</TableCell>
-						<TableCell align='center'>Notes</TableCell>
+						<TableCell align='center' style={styles.txt}>
+							Date
+						</TableCell>
+						<TableCell align='center' style={styles.txt}>
+							Item
+						</TableCell>
+						<TableCell align='center' style={styles.txt}>
+							Amount
+						</TableCell>
+						<TableCell align='center' style={styles.txt}>
+							Notes
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableHead>
@@ -208,10 +211,16 @@ const MonthTable = () => {
 				<TableBody>
 					{tabelData().map((row) => (
 						<TableRow key={row._id}>
-							<TableCell align='center'>{row.date}</TableCell>
-							<TableCell align='center'>{row.item}</TableCell>
-							<TableCell align='center'>{row.amount}</TableCell>
-							<TableCell align='center'>
+							<TableCell align='center' style={styles.txt}>
+								{row.date}
+							</TableCell>
+							<TableCell align='center' style={styles.txt}>
+								{row.item}
+							</TableCell>
+							<TableCell align='center' style={styles.txt}>
+								{row.amount}
+							</TableCell>
+							<TableCell align='center' style={styles.txt}>
 								<TouchableOpacity onPress={() => handleDialog(row.notes)}>
 									<p style={styles.notes}>{row.notes}</p>
 								</TouchableOpacity>
@@ -223,11 +232,13 @@ const MonthTable = () => {
 				<TableHead style={styles.footer}>
 					<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 						<TableCell>
-							<Text>TOTAL {entryType.toUpperCase()}</Text>
+							<Text style={styles.outerTxt}>
+								TOTAL {entryType.toUpperCase()}
+							</Text>
 						</TableCell>
 						<TableCell></TableCell>
 						<TableCell></TableCell>
-						<TableCell align='right'>
+						<TableCell align='right' style={styles.outerTxt}>
 							$
 							{entryType === 'Expenses'
 								? totalExp
@@ -245,6 +256,9 @@ const MonthTable = () => {
 export default MonthTable;
 
 const styles = StyleSheet.create({
+	table: {
+		backgroundColor: '#16161a',
+	},
 	tableTop: {
 		height: 60,
 		flexDirection: 'row',
@@ -254,10 +268,17 @@ const styles = StyleSheet.create({
 		borderColor: 'green',
 		position: 'relative',
 	},
+	outerTxt: {
+		color: 'whitesmoke',
+		fontWeight: 'bold',
+	},
 	add: {
 		position: 'absolute',
 		right: 20,
 		top: 9,
+		color: 'whitesmoke',
+	},
+	txt: {
 		color: 'whitesmoke',
 	},
 	notes: {
