@@ -4,6 +4,7 @@ import {
 	createEntityAdapter,
 } from '@reduxjs/toolkit';
 import { PURGE } from 'redux-persist';
+import dayjs from 'dayjs';
 import katanaApi from '../../api/katanaApi';
 
 export const getYear = createAsyncThunk(
@@ -41,7 +42,7 @@ const initialState = accountingAdapter.getInitialState({
 	month: null,
 	startBal: 0,
 	entryType: '',
-	entryDate: '',
+	entryDate: dayjs(new Date()).format('M/D/YYYY'),
 	item: '',
 	amount: 0,
 	notes: '',
@@ -52,6 +53,7 @@ const initialState = accountingAdapter.getInitialState({
 	hidden: true,
 	visible: false,
 	show: false,
+	open: false,
 	dialogTxt: '',
 	errors: null,
 });
@@ -99,6 +101,9 @@ export const accountingSlice = createSlice({
 		setShow: (state, action) => {
 			state.show = action.payload;
 		},
+		setOpen: (state) => {
+			state.open = !state.open;
+		},
 		setDialogTxt: (state, action) => {
 			state.dialogTxt = action.payload;
 		},
@@ -126,6 +131,7 @@ export const accountingSlice = createSlice({
 			state.hidden = true;
 			state.visible = false;
 			state.show = false;
+			state.open = false;
 			state.dialogTxt = '';
 			state.errors = null;
 		},
@@ -180,6 +186,7 @@ export const accountingSlice = createSlice({
 				state.hidden = true;
 				state.visible = false;
 				state.show = false;
+				state.open = false;
 				state.dialogTxt = '';
 				state.errors = null;
 			});
@@ -200,6 +207,7 @@ export const {
 	setHidden,
 	setVisible,
 	setShow,
+	setOpen,
 	setDialogTxt,
 	clearForm,
 	resetAccountingSlice,
