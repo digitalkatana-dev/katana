@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	card: {
-		width: '65%',
+		width: '30%',
 		borderRadius: '50%',
 		padding: 35,
 		backgroundColor: '#16161a',
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
 	},
 	txt: {
 		color: 'whitesmoke',
+		textAlign: 'center',
 	},
 	success: {
 		color: 'green',
