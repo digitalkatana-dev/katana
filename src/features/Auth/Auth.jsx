@@ -142,15 +142,9 @@ const Auth = () => {
 												edge='end'
 											>
 												{show ? (
-<<<<<<< HEAD:src/features/Auth/Auth.jsx
 													<VisibilityOff className='visibility-icon' />
 												) : (
 													<Visibility className='visibility-icon' />
-=======
-													<VisibilityOff style={styles.viewIcon} />
-												) : (
-													<Visibility style={styles.viewIcon} />
->>>>>>> bf7a6bfc81424e6b25e87cb4b7a07d4d152d39c7:src/features/Auth.jsx
 												)}
 											</IconButton>
 										</InputAdornment>
@@ -173,45 +167,3 @@ const Auth = () => {
 };
 
 export default Auth;
-<<<<<<< HEAD:src/features/Auth/Auth.jsx
-=======
-
-const styles = StyleSheet.create({
-	canvas: {
-		height: 'calc(100vh - 64px)',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	card: {
-		borderRadius: '50%',
-		padding: 35,
-		backgroundColor: '#16161a',
-	},
-	container: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	title: {
-		color: 'whitesmoke',
-	},
-	icon: {
-		color: 'green',
-		alignSelf: 'center',
-	},
-	viewIcon: {
-		color: 'grey',
-	},
-	link: {
-		textDecorationLine: 'none',
-		color: 'steelblue',
-		fontSize: '.8rem',
-		fontWeight: 'bold',
-		marginTop: 10,
-	},
-	error: {
-		textAlign: 'center',
-		color: 'red',
-	},
-});
->>>>>>> bf7a6bfc81424e6b25e87cb4b7a07d4d152d39c7:src/features/Auth.jsx
