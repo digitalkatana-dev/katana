@@ -1,4 +1,3 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import {
 	Card,
 	CardContent,
@@ -17,13 +16,15 @@ import {
 	setPassword,
 	setShow,
 	clearErrors,
-} from '../redux/slices/authSlice';
+} from '../../redux/slices/authSlice';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import TextInput from '../components/TextInput';
-import Button from '../components/Button';
+import TouchableOpacity from '../../components/TouchableOpacity';
+import TextInput from '../../components/TextInput';
+import Button from '../../components/Button';
+import './auth.scss';
 
 const Auth = () => {
 	const { loading, authType, name, email, password, show, errors } =
@@ -78,22 +79,22 @@ const Auth = () => {
 	};
 
 	return (
-		<View style={styles.canvas}>
-			<Card style={styles.card}>
-				<CardContent style={styles.container}>
+		<div id='canvas'>
+			<Card className='card'>
+				<CardContent className='container'>
 					<TouchableOpacity
-						onPress={() =>
+						onClick={() =>
 							handleChange(
 								'toggle',
 								authType === 'Login' ? 'Register' : 'Login'
 							)
 						}
 					>
-						<h2 style={styles.title}>{authType}</h2>
+						<h2 className='auth-type'>{authType}</h2>
 						{authType === 'Register' ? (
-							<PersonAddIcon style={styles.icon} fontSize='large' />
+							<PersonAddIcon className='icon' fontSize='large' />
 						) : (
-							<LoginIcon style={styles.icon} fontSize='large' />
+							<LoginIcon className='icon' fontSize='large' />
 						)}
 					</TouchableOpacity>
 					<form onSubmit={handleSubmit}>
@@ -104,13 +105,12 @@ const Auth = () => {
 										label='Name'
 										size='small'
 										margin='dense'
-										fullWidth
 										value={name}
 										onChange={(e) => handleChange('name', e.target.value)}
-										onFocus={() => dispatch(clearErrors)}
+										onFocus={() => dispatch(clearErrors())}
 									/>
 									{errors && errors.name && (
-										<h6 style={styles.error}>{errors.name}</h6>
+										<h6 className='error'>{errors.name}</h6>
 									)}
 								</>
 							)}
@@ -118,20 +118,18 @@ const Auth = () => {
 								label='Email'
 								size='small'
 								margin='dense'
-								fullWidth
 								value={email}
 								onChange={(e) => handleChange('email', e.target.value)}
-								onFocus={() => dispatch(clearErrors)}
+								onFocus={() => dispatch(clearErrors())}
 							/>
 							{errors && errors.email && (
-								<h6 style={styles.error}>{errors.email}</h6>
+								<h6 className='error'>{errors.email}</h6>
 							)}
 							<TextInput
 								type={show ? 'text' : 'password'}
 								label='Password'
 								size='small'
 								margin='dense'
-								fullWidth
 								value={password}
 								onChange={(e) => handleChange('password', e.target.value)}
 								onFocus={() => dispatch(clearErrors())}
@@ -139,12 +137,15 @@ const Auth = () => {
 									endAdornment: (
 										<InputAdornment position='end'>
 											<IconButton
-												aria-label='toggle password visibility'
 												onClick={() => dispatch(setShow())}
 												onMouseDown={(e) => e.preventDefault()}
 												edge='end'
 											>
-												{show ? <VisibilityOff /> : <Visibility />}
+												{show ? (
+													<VisibilityOff className='visibility-icon' />
+												) : (
+													<Visibility className='visibility-icon' />
+												)}
 											</IconButton>
 										</InputAdornment>
 									),
@@ -156,49 +157,13 @@ const Auth = () => {
 							<Button type='submit' loading={loading} label='SUBMIT' />
 						</FormControl>
 					</form>
-					<Link style={styles.link} to='/forgot-password'>
+					<Link className='link' to='/forgot-password'>
 						Forgot Password
 					</Link>
 				</CardContent>
 			</Card>
-		</View>
+		</div>
 	);
 };
 
 export default Auth;
-
-const styles = StyleSheet.create({
-	canvas: {
-		height: 'calc(100vh - 64px)',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	card: {
-		borderRadius: '50%',
-		padding: 35,
-		backgroundColor: '#16161a',
-	},
-	container: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	title: {
-		color: 'whitesmoke',
-	},
-	icon: {
-		color: 'green',
-		alignSelf: 'center',
-	},
-	link: {
-		textDecorationLine: 'none',
-		color: 'steelblue',
-		fontSize: '.8rem',
-		fontWeight: 'bold',
-		marginTop: 10,
-	},
-	error: {
-		textAlign: 'center',
-		color: 'red',
-	},
-});
