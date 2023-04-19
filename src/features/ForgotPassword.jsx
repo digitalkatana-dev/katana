@@ -69,7 +69,7 @@ const ForgotPassword = () => {
 									<b>{errors.auth}</b>
 								</View>
 							) : (
-								<Text>
+								<Text style={styles.txt}>
 									A link to reset your password will be sent to the email
 									address associated with your account.
 								</Text>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	card: {
-		width: '65%',
+		width: '30%',
 		borderRadius: '50%',
 		padding: 35,
 		backgroundColor: '#16161a',
@@ -124,6 +124,10 @@ const styles = StyleSheet.create({
 	},
 	icon: {
 		alignSelf: 'center',
+	},
+	txt: {
+		color: 'whitesmoke',
+		textAlign: 'center',
 	},
 	success: {
 		color: 'green',

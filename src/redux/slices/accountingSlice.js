@@ -4,6 +4,7 @@ import {
 	createEntityAdapter,
 } from '@reduxjs/toolkit';
 import { PURGE } from 'redux-persist';
+import dayjs from 'dayjs';
 import katanaApi from '../../api/katanaApi';
 
 export const getYear = createAsyncThunk(
@@ -36,12 +37,12 @@ export const updateYear = createAsyncThunk(
 export const accountingAdapter = createEntityAdapter();
 const initialState = accountingAdapter.getInitialState({
 	loading: false,
-	selectedYear: '',
+	selectedYear: new Date().getFullYear().toString(),
 	year: null,
 	month: null,
 	startBal: 0,
 	entryType: '',
-	entryDate: '',
+	entryDate: dayjs(new Date()).format('M/D/YYYY'),
 	item: '',
 	amount: 0,
 	notes: '',
@@ -52,6 +53,7 @@ const initialState = accountingAdapter.getInitialState({
 	hidden: true,
 	visible: false,
 	show: false,
+	open: false,
 	dialogTxt: '',
 	errors: null,
 });
@@ -61,7 +63,14 @@ export const accountingSlice = createSlice({
 	initialState,
 	reducers: {
 		setSelectedYear: (state, action) => {
-			state.selectedYear = action.payload;
+			if (action.payload === '') {
+				state.selectedYear = initialState.selectedYear;
+				state.year = null;
+				state.totalExp = 0;
+				state.totalRev = 0;
+			} else {
+				state.selectedYear = action.payload;
+			}
 		},
 		setMonth: (state, action) => {
 			state.month = action.payload;
@@ -99,6 +108,9 @@ export const accountingSlice = createSlice({
 		setShow: (state, action) => {
 			state.show = action.payload;
 		},
+		setOpen: (state) => {
+			state.open = !state.open;
+		},
 		setDialogTxt: (state, action) => {
 			state.dialogTxt = action.payload;
 		},
@@ -126,6 +138,7 @@ export const accountingSlice = createSlice({
 			state.hidden = true;
 			state.visible = false;
 			state.show = false;
+			state.open = false;
 			state.dialogTxt = '';
 			state.errors = null;
 		},
@@ -180,6 +193,7 @@ export const accountingSlice = createSlice({
 				state.hidden = true;
 				state.visible = false;
 				state.show = false;
+				state.open = false;
 				state.dialogTxt = '';
 				state.errors = null;
 			});
@@ -200,6 +214,7 @@ export const {
 	setHidden,
 	setVisible,
 	setShow,
+	setOpen,
 	setDialogTxt,
 	clearForm,
 	resetAccountingSlice,
