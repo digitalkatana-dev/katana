@@ -1,22 +1,30 @@
-import { useState } from 'react';
+import { Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMenuOpen } from '../../redux/slices/navSlice';
+import { logout } from '../../redux/slices/authSlice';
+import { persistor } from '../../redux/rootStore';
 import PersonIcon from '@mui/icons-material/Person';
 import MailIcon from '@mui/icons-material/Mail';
 import './navbar.scss';
 
 const Navbar = () => {
-	const [menuOpen, setMenuOpen] = useState(false);
+	const { menuOpen } = useSelector((state) => state.nav);
+	const { user } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
+
+	const handleMenu = () => {
+		dispatch(setMenuOpen());
+	};
+
+	const handleLogout = () => {
+		dispatch(logout());
+		persistor.purge();
+	};
 
 	return (
 		<div className={menuOpen ? 'navbar active' : 'navbar'}>
 			<div className='wrapper'>
 				<div className='left'>
-					{/* <a href='#intro'>
-						<img
-							src={menuOpen ? '/katana-logo.png' : '/katana-logo-light.png'}
-							alt=''
-							className='logo'
-						/>
-					</a> */}
 					<div className='item-container'>
 						<PersonIcon className='icon' />
 						<span>858-208-0560</span>
@@ -27,11 +35,17 @@ const Navbar = () => {
 					</div>
 				</div>
 				<div className='right'>
-					<div className='hamburger' onClick={() => setMenuOpen(!menuOpen)}>
-						<span className='line1'></span>
-						<span className='line2'></span>
-						<span className='line3'></span>
-					</div>
+					{user ? (
+						<Button color='inherit' onClick={handleLogout}>
+							Logout
+						</Button>
+					) : (
+						<div className='hamburger' onClick={handleMenu}>
+							<span className='line1'></span>
+							<span className='line2'></span>
+							<span className='line3'></span>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

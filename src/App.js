@@ -7,6 +7,8 @@ import {
 	Navigate,
 } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Menu from './components/Menu';
+import Home from './features/Home';
 import Auth from './features/Auth';
 import ForgotPassword from './features/ForgotPassword';
 import ResetPassword from './features/ResetPassword';
@@ -20,16 +22,18 @@ function App() {
 	return (
 		<Router>
 			<Navbar />
+			<Menu />
 			<Routes>
 				{user ? (
 					<>
-						<Route path='/' element={<Dashboard />} />
+						<Route path='/dashboard' element={<Dashboard />} />
 						<Route path='/accounting' element={<AccountingHomeScreen />} />
 						<Route path='/month' element={<MonthScreen />} />
 					</>
 				) : (
 					<>
-						<Route path='/' element={<Auth />} />
+						<Route path='/' element={<Home />} />
+						<Route path='/auth' element={<Auth />} />
 						<Route path='/forgot-password' element={<ForgotPassword />} />
 						<Route path='/reset-password/:id' element={<ResetPassword />} />
 					</>

@@ -1,0 +1,54 @@
+.menu {
+	width: 300px;
+	height: 100vh;
+	background: black;
+	position: fixed;
+	top: 0;
+	right: -300px;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: all 1s ease;
+
+	&.active {
+		right: 0;
+	}
+
+	ul {
+		list-style: none;
+		font-size: 30px;
+		font-weight: 300;
+		color: #6d41a1;
+		width: 60%;
+
+		li {
+			margin-bottom: 20px;
+			a {
+				font-size: inherit;
+				color: inherit;
+				text-decoration: none;
+			}
+
+			&:hover {
+				color: whitesmoke;
+				font-weight: 600;
+			}
+		}
+	}
+
+	#auth-link {
+		color: transparent;
+		text-decoration: none;
+		font-size: 30px;
+		font-weight: 300;
+		position: absolute;
+		bottom: 30px;
+
+		&:hover {
+			color: indigo;
+			font-weight: 400;
+		}
+	}
+}

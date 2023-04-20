@@ -1,6 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
+	scroll-snap-align: start;
 }
 
 html {
@@ -14,4 +15,10 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	scroll-behavior: smooth;
+	scroll-snap-type: y mandatory;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
