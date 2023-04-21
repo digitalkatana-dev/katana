@@ -48,7 +48,7 @@ const Menu = () => {
 					</li>
 				))}
 			</ul>
-			<Link id='auth-link' to='/auth'>
+			<Link id='auth-link' to='/dashboard' onClick={handleMenu}>
 				Login
 			</Link>
 		</div>

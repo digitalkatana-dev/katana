@@ -1,4 +1,3 @@
-import { StyleSheet, View } from 'react-native';
 import {
 	Table,
 	TableBody,
@@ -10,7 +9,7 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setMonth } from '../../../redux/slices/accountingSlice';
+import { setMonth } from '../../../../../redux/slices/accountingSlice';
 import {
 	rows,
 	doTheMath,
@@ -18,10 +17,10 @@ import {
 	totalExp,
 	totalRev,
 	totalProfit,
-} from '../../../util/helpers';
-import React from 'react';
+} from '../../../../../util/helpers';
+import './annual.scss';
 
-const HomeTable = () => {
+const AnnualTable = () => {
 	const { selectedYear, year } = useSelector((state) => state.accounting);
 	const dispatch = useDispatch();
 	const months = year?.months;
@@ -34,7 +33,7 @@ const HomeTable = () => {
 		let monthly = [];
 
 		const monthLink = (data) => (
-			<Link onClick={() => handleLink(data)} style={styles.link} to='/month'>
+			<Link onClick={() => handleLink(data)} className='link' to='/month'>
 				{data.name}
 			</Link>
 		);
@@ -54,24 +53,24 @@ const HomeTable = () => {
 	};
 
 	return (
-		<View>
-			<TableContainer style={styles.table} component={Paper}>
-				<div style={styles.header}>
-					<h4 style={styles.txt}>{selectedYear} Year Summary</h4>
+		<div>
+			<TableContainer className='table' component={Paper}>
+				<div className='header'>
+					<h4 className='txt'>{selectedYear} Year Summary</h4>
 				</div>
 				<Table sx={{ minWidth: 650 }}>
 					<TableHead>
 						<TableRow>
-							<TableCell align='center' style={styles.cell}>
+							<TableCell align='center' className='txt'>
 								Month
 							</TableCell>
-							<TableCell align='center' style={styles.cell}>
+							<TableCell align='center' className='txt'>
 								Expenses
 							</TableCell>
-							<TableCell align='center' style={styles.cell}>
+							<TableCell align='center' className='txt'>
 								Revenue
 							</TableCell>
-							<TableCell align='center' style={styles.cell}>
+							<TableCell align='center' className='txt'>
 								Profit
 							</TableCell>
 						</TableRow>
@@ -82,13 +81,13 @@ const HomeTable = () => {
 								<TableCell component='th' scope='row' align='center'>
 									{row.month}
 								</TableCell>
-								<TableCell align='center' style={styles.cell}>
+								<TableCell align='center' className='txt'>
 									{row.expenses}
 								</TableCell>
-								<TableCell align='center' style={styles.cell}>
+								<TableCell align='center' className='txt'>
 									{row.revenue}
 								</TableCell>
-								<TableCell align='center' style={styles.cell}>
+								<TableCell align='center' className='txt'>
 									{row.profit}
 								</TableCell>
 							</TableRow>
@@ -100,50 +99,25 @@ const HomeTable = () => {
 								component='th'
 								scope='row'
 								align='center'
-								style={styles.cell}
+								className='txt'
 							>
 								Totals
 							</TableCell>
-							<TableCell align='center' style={styles.cell}>{`$${totalExp(
+							<TableCell align='center' className='txt'>{`$${totalExp(
 								tableData(months)
 							)}`}</TableCell>
-							<TableCell align='center' style={styles.cell}>{`$${totalRev(
+							<TableCell align='center' className='txt'>{`$${totalRev(
 								tableData(months)
 							)}`}</TableCell>
-							<TableCell align='center' style={styles.cell}>{`$${totalProfit(
+							<TableCell align='center' className='txt'>{`$${totalProfit(
 								tableData(months)
 							)}`}</TableCell>
 						</TableRow>
 					</TableBody>
 				</Table>
 			</TableContainer>
-		</View>
+		</div>
 	);
 };
 
-export default HomeTable;
-
-const styles = StyleSheet.create({
-	table: {
-		backgroundColor: '#16161a',
-	},
-	header: {
-		border: '2px solid indigo',
-		borderTopWidth: 0,
-		borderLeftWidth: 0,
-		borderRightWidth: 0,
-		color: 'whitesmoke',
-		padding: 10,
-		textAlign: 'center',
-	},
-	cell: {
-		color: 'whitesmoke',
-	},
-	link: {
-		textDecorationLine: 'none',
-		color: 'steelblue',
-		fontSize: '.8rem',
-		fontWeight: 'bold',
-		marginTop: 10,
-	},
-});
+export default AnnualTable;

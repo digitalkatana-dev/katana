@@ -1,0 +1,62 @@
+.canvas {
+	height: calc(100vh - 70px);
+	position: relative;
+	top: 70px;
+	border: 2px solid red;
+
+	.card {
+		border: 3px solid indigo;
+		border-radius: 50%;
+		padding: 35px;
+		background-color: #16161a;
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+
+	.txt {
+		color: whitesmoke;
+	}
+
+	.title-icon {
+		align-self: center;
+		margin-bottom: 10px;
+	}
+
+	.response-container {
+		display: flex;
+		align-items: center;
+		align-self: center;
+
+		.response-icon {
+			margin-right: 2.5px;
+		}
+	}
+
+	.success {
+		color: green;
+	}
+
+	.fail {
+		color: red;
+	}
+
+	.visibility-icon {
+		color: grey;
+	}
+
+	.link {
+		text-decoration: none;
+		color: steelblue;
+		font-weight: 500;
+	}
+
+	.error {
+		color: red;
+		text-align: center;
+		margin-top: 5px;
+	}
+}

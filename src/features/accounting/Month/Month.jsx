@@ -1,10 +1,3 @@
-import {
-	ScrollView,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	View,
-} from 'react-native';
 import { Card, CardContent, IconButton } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
@@ -21,10 +14,12 @@ import {
 } from '../../../redux/slices/accountingSlice';
 import { doTheMath, profit } from '../../../util/helpers';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import MonthTable from '../components/MonthTable';
+import MonthTable from './components/MonthTable';
+import TouchableOpacity from '../../../components/TouchableOpacity';
 import TextInput from '../../../components/TextInput';
+import './month.scss';
 
-const MonthScreen = () => {
+const Month = () => {
 	const {
 		// loading,
 		selectedYear,
@@ -84,19 +79,19 @@ const MonthScreen = () => {
 	}, [dispatch, month]);
 
 	return (
-		<View style={styles.canvas}>
-			<Link style={styles.back} to='/accounting' onClick={handleBack}>
+		<div className='canvas month'>
+			<Link className='link back' to='/accounting' onClick={handleBack}>
 				Back
 			</Link>
-			<h4 style={styles.header}>{month.name + ' ' + selectedYear}</h4>
-			<Card style={styles.card}>
-				<CardContent style={styles.container}>
-					<View style={styles.row}>
-						<View style={styles.starting}>
-							<Text style={styles.txt}>Starting Bal: </Text>
+			<h4 className='txt header'>{month.name + ' ' + selectedYear}</h4>
+			<Card className='card'>
+				<CardContent className='container'>
+					<div className='row'>
+						<div className='starting'>
+							<h4 className='txt'>Starting Bal: </h4>
 							{month.startBal === 0 && !show ? (
-								<TouchableOpacity onPress={() => dispatch(setShow(true))}>
-									<Text style={styles.txt}>Set Starting Bal</Text>
+								<TouchableOpacity onClick={() => dispatch(setShow(true))}>
+									<h4 className='txt'>Set Starting Bal</h4>
 								</TouchableOpacity>
 							) : show ? (
 								<TextInput
@@ -108,95 +103,38 @@ const MonthScreen = () => {
 									onFocus={() => dispatch(setHidden(false))}
 								/>
 							) : month.startBal !== 0 ? (
-								<TouchableOpacity onPress={() => dispatch(setShow())}>
-									<Text style={styles.txt}>${startBal}</Text>
+								<TouchableOpacity onClick={() => dispatch(setShow())}>
+									<h4 className='txt'>${startBal}</h4>
 								</TouchableOpacity>
 							) : null}
 							{!hidden && (
 								<IconButton onClick={handleStartBal}>
-									<AddCircleOutlineIcon style={styles.icon} />
+									<AddCircleOutlineIcon className='icon' />
 								</IconButton>
 							)}
-						</View>
-						<Text style={styles.txt}>Expenses: ${totalExp}</Text>
-					</View>
-					<View style={styles.overRev}>
-						<Text style={styles.txt}>Revenue: ${totalRev}</Text>
-					</View>
-					<View style={styles.row}>
-						<Text style={styles.txt}>Ending Bal: ${endBal}</Text>
-						<Text style={styles.txt}>
-							Profit: ${profit(totalRev, totalExp)}
-						</Text>
-					</View>
+						</div>
+						<h4 className='txt'>Expenses: ${totalExp}</h4>
+					</div>
+					<div className='rev'>
+						<h4 className='txt'>Revenue: ${totalRev}</h4>
+					</div>
+					<div className='row'>
+						<h4 className='txt'>Ending Bal: ${endBal}</h4>
+						<h4 className='txt'>Profit: ${profit(totalRev, totalExp)}</h4>
+					</div>
 				</CardContent>
 			</Card>
 			<select
-				style={styles.select}
+				className='select'
 				onChange={(e) => handleChange('entryType', e.target.value)}
 			>
 				<option value=''>Choose...</option>
 				<option value='Expenses'>Expenses</option>
 				<option value='Revenue'>Revenue</option>
 			</select>
-			<ScrollView>{entryType && <MonthTable />}</ScrollView>
-		</View>
+			<div>{entryType && <MonthTable />}</div>
+		</div>
 	);
 };
 
-export default MonthScreen;
-
-const styles = StyleSheet.create({
-	canvas: {
-		height: 'calc(100vh - 64px)',
-		justifyContent: 'center',
-		alignItems: 'center',
-		position: 'relative',
-	},
-	back: {
-		position: 'absolute',
-		top: 20,
-		left: 30,
-		color: 'dodgerblue',
-		textDecorationLine: 'none',
-	},
-	header: {
-		marginTop: 40,
-		marginBottom: 20,
-	},
-	card: {
-		width: '80%',
-		borderRadius: 30,
-		padding: 20,
-		backgroundColor: '#16161a',
-	},
-	row: {
-		width: '100%',
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-	},
-	starting: {
-		flexDirection: 'row',
-		alignItems: 'center',
-	},
-	txt: {
-		color: 'whitesmoke',
-	},
-	icon: {
-		color: 'green',
-	},
-	overRev: {
-		marginVertical: 10,
-		alignItems: 'flex-end',
-	},
-	select: {
-		backgroundColor: '#16161a',
-		borderRadius: 20,
-		color: 'whitesmoke',
-		fontSize: 15,
-		marginTop: 15,
-		marginBottom: 15,
-		padding: 5,
-		textAlign: 'center',
-	},
-});
+export default Month;

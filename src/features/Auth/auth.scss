@@ -1,47 +1,23 @@
-#canvas {
-	height: calc(100vh - 70px);
-	position: relative;
-	top: 70px;
+.auth {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
 
-	.card {
-		border: 3px solid indigo;
-		border-radius: 50%;
-		padding: 35px;
-		background-color: #16161a;
+	.title-icon.green {
+		color: green;
+	}
 
-		.container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
+	.link {
+		text-decoration: none;
+		color: steelblue;
+		font-size: 0.8rem;
+		font-weight: bold;
+	}
 
-			.auth-type {
-				color: whitesmoke;
-			}
-
-			.icon {
-				color: green;
-			}
-
-			.visibility-icon {
-				color: gray;
-			}
-
-			.link {
-				text-decoration: none;
-				color: steelblue;
-				font-size: 0.8rem;
-				font-weight: bold;
-			}
-
-			.error {
-				color: red;
-				font-weight: bold;
-				text-align: center;
-			}
-		}
+	.error {
+		color: red;
+		font-weight: bold;
+		text-align: center;
 	}
 }
