@@ -1,4 +1,3 @@
-import { StyleSheet, View } from 'react-native';
 import {
 	Card,
 	CardContent,
@@ -15,15 +14,15 @@ import {
 	resetPassword,
 	clearSuccess,
 	clearErrors,
-} from '../redux/slices/authSlice';
+} from '../../redux/slices/authSlice';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import TextInput from '../components/TextInput';
-import Button from '../components/Button';
-import React from 'react';
+import TextInput from '../../components/TextInput';
+import Button from '../../components/Button';
+import './reset.scss';
 
 const ResetPassword = () => {
 	const { loading, password, show, success, errors } = useSelector(
@@ -54,27 +53,30 @@ const ResetPassword = () => {
 	}, [dispatch, success]);
 
 	return (
-		<View style={styles.canvas}>
-			<Card style={styles.card}>
-				<CardContent style={styles.container}>
-					<h5 style={styles.title}>Reset Password</h5>
-					<LockResetIcon style={styles.lock} fontSize='large' />
+		<div className='canvas reset'>
+			<Card className='card'>
+				<CardContent className='container'>
+					<h2 className='txt'>Reset Password</h2>
+					<LockResetIcon className='title-icon blue' fontSize='large' />
 					<form onSubmit={handleSubmit}>
 						<FormControl variant='standard'>
 							{success && (
-								<View style={styles.success}>
+								<div className='response-container success'>
 									<CheckCircleOutlineIcon
-										style={styles.icon}
-										fontSize='large'
+										className='response-icon'
+										fontSize='inherit'
 									/>
 									<b>{success.message}</b>
-								</View>
+								</div>
 							)}
 							{errors && errors.token && (
-								<View style={styles.fail}>
-									<HighlightOffIcon style={styles.icon} fontSize='large' />
+								<div className='response-container fail'>
+									<HighlightOffIcon
+										className='response-icon'
+										fontSize='inherit'
+									/>
 									<b>{errors.token}</b>
-								</View>
+								</div>
 							)}
 							<TextInput
 								type={show ? 'text' : 'password'}
@@ -89,12 +91,15 @@ const ResetPassword = () => {
 									endAdornment: (
 										<InputAdornment position='end'>
 											<IconButton
-												aria-label='toggle password visibility'
 												onClick={() => dispatch(setShow())}
 												onMouseDown={(e) => e.preventDefault()}
 												edge='end'
 											>
-												{show ? <VisibilityOff /> : <Visibility />}
+												{show ? (
+													<VisibilityOff className='visibility-icon' />
+												) : (
+													<Visibility className='visibility-icon' />
+												)}
 											</IconButton>
 										</InputAdornment>
 									),
@@ -105,55 +110,55 @@ const ResetPassword = () => {
 					</form>
 				</CardContent>
 			</Card>
-		</View>
+		</div>
 	);
 };
 
 export default ResetPassword;
 
-const styles = StyleSheet.create({
-	canvas: {
-		height: 'calc(100vh - 64px)',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	card: {
-		width: '30%',
-		borderRadius: '50%',
-		padding: 35,
-		backgroundColor: '#16161a',
-	},
-	container: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		textAlign: 'center',
-	},
-	title: {
-		color: 'whitesmoke',
-	},
-	lock: {
-		color: 'steelblue',
-		alignSelf: 'center',
-	},
-	icon: {
-		alignSelf: 'center',
-	},
-	success: {
-		color: 'green',
-	},
-	fail: {
-		color: 'red',
-	},
-	link: {
-		textDecorationLine: 'none',
-		color: 'steelblue',
-		fontSize: '.8rem',
-		fontWeight: 'bold',
-		marginTop: 10,
-	},
-	error: {
-		textAlign: 'center',
-		color: 'red',
-	},
-});
+// const styles = StyleSheet.create({
+// 	canvas: {
+// 		height: 'calc(100vh - 64px)',
+// 		justifyContent: 'center',
+// 		alignItems: 'center',
+// 	},
+// 	card: {
+// 		width: '30%',
+// 		borderRadius: '50%',
+// 		padding: 35,
+// 		backgroundColor: '#16161a',
+// 	},
+// 	container: {
+// 		display: 'flex',
+// 		flexDirection: 'column',
+// 		alignItems: 'center',
+// 		textAlign: 'center',
+// 	},
+// 	title: {
+// 		color: 'whitesmoke',
+// 	},
+// 	lock: {
+// 		color: 'steelblue',
+// 		alignSelf: 'center',
+// 	},
+// 	icon: {
+// 		alignSelf: 'center',
+// 	},
+// 	success: {
+// 		color: 'green',
+// 	},
+// 	fail: {
+// 		color: 'red',
+// 	},
+// 	link: {
+// 		textDecorationLine: 'none',
+// 		color: 'steelblue',
+// 		fontSize: '.8rem',
+// 		fontWeight: 'bold',
+// 		marginTop: 10,
+// 	},
+// 	error: {
+// 		textAlign: 'center',
+// 		color: 'red',
+// 	},
+// });

@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
@@ -15,7 +14,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<AppBar style={styles.nav} position='static'>
+		<AppBar position='static'>
 			<Toolbar>
 				{user ? (
 					<>
@@ -41,9 +40,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-const styles = StyleSheet.create({
-	nav: {
-		backgroundColor: 'indigo',
-	},
-});

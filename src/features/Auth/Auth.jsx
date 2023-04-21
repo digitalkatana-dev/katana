@@ -79,7 +79,7 @@ const Auth = () => {
 	};
 
 	return (
-		<div id='canvas'>
+		<div className='canvas auth'>
 			<Card className='card'>
 				<CardContent className='container'>
 					<TouchableOpacity
@@ -90,11 +90,11 @@ const Auth = () => {
 							)
 						}
 					>
-						<h2 className='auth-type'>{authType}</h2>
+						<h2 className='txt'>{authType}</h2>
 						{authType === 'Register' ? (
-							<PersonAddIcon className='icon' fontSize='large' />
+							<PersonAddIcon className='title-icon green' fontSize='large' />
 						) : (
-							<LoginIcon className='icon' fontSize='large' />
+							<LoginIcon className='title-icon green' fontSize='large' />
 						)}
 					</TouchableOpacity>
 					<form onSubmit={handleSubmit}>

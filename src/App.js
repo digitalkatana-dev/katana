@@ -13,8 +13,9 @@ import Auth from './features/Auth';
 import ForgotPassword from './features/ForgotPassword';
 import ResetPassword from './features/ResetPassword';
 import Dashboard from './features/Dashboard';
-import AccountingHomeScreen from './features/accounting/screens/AccountingHomeScreen';
-import MonthScreen from './features/accounting/screens/MonthScreen';
+import AnnualSummary from './features/accounting/AnnualSummary';
+import Month from './features/accounting/Month';
+import './app.scss';
 
 function App() {
 	const { user } = useSelector((state) => state.auth);
@@ -27,13 +28,13 @@ function App() {
 				{user ? (
 					<>
 						<Route path='/dashboard' element={<Dashboard />} />
-						<Route path='/accounting' element={<AccountingHomeScreen />} />
-						<Route path='/month' element={<MonthScreen />} />
+						<Route path='/accounting' element={<AnnualSummary />} />
+						<Route path='/month' element={<Month />} />
 					</>
 				) : (
 					<>
 						<Route path='/' element={<Home />} />
-						<Route path='/auth' element={<Auth />} />
+						<Route path='/dashboard' element={<Auth />} />
 						<Route path='/forgot-password' element={<ForgotPassword />} />
 						<Route path='/reset-password/:id' element={<ResetPassword />} />
 					</>

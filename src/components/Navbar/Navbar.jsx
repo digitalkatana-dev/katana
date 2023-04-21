@@ -25,14 +25,20 @@ const Navbar = () => {
 		<div className={menuOpen ? 'navbar active' : 'navbar'}>
 			<div className='wrapper'>
 				<div className='left'>
-					<div className='item-container'>
-						<PersonIcon className='icon' />
-						<span>858-208-0560</span>
-					</div>
-					<div className='item-container'>
-						<MailIcon className='icon' />
-						<span>brandon@digitalkatana.dev</span>
-					</div>
+					{user ? (
+						<h4>Hello, {user.name}!</h4>
+					) : (
+						<>
+							<div className='item-container'>
+								<PersonIcon className='icon' />
+								<span>858-208-0560</span>
+							</div>
+							<div className='item-container'>
+								<MailIcon className='icon' />
+								<span>brandon@digitalkatana.dev</span>
+							</div>
+						</>
+					)}
 				</div>
 				<div className='right'>
 					{user ? (

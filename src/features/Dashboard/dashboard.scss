@@ -1,0 +1,17 @@
+.dash {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+
+	.card {
+		border-radius: 30px !important;
+		border: none !important;
+
+		.hr {
+			width: 100%;
+			color: whitesmoke;
+			margin: 5px 0;
+		}
+	}
+}

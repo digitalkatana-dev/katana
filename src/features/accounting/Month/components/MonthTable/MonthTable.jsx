@@ -1,4 +1,3 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
 	IconButton,
 	Table,
@@ -19,11 +18,13 @@ import {
 	setDialogTxt,
 	updateYear,
 	clearForm,
-} from '../../../redux/slices/accountingSlice';
+} from '../../../../../redux/slices/accountingSlice';
 import dayjs from 'dayjs';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import TextInput from '../../../components/TextInput';
-import Alert from '../../../components/Alert';
+import TextInput from '../../../../../components/TextInput';
+import Alert from '../../../../../components/Alert';
+import TouchableOpacity from '../../../../../components/TouchableOpacity';
+import './monthTable.scss';
 
 const MonthTable = () => {
 	const {
@@ -136,6 +137,7 @@ const MonthTable = () => {
 
 	const tableTop = {
 		height: 60,
+		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
 		position: 'relative',
@@ -143,26 +145,26 @@ const MonthTable = () => {
 	};
 
 	return (
-		<TableContainer style={styles.table} component={Paper}>
-			<View style={tableTop}>
-				<Text style={styles.outerTxt}>{entryType}</Text>
-				<IconButton style={styles.add} onClick={handleAdd}>
+		<TableContainer className='table' component={Paper}>
+			<div style={tableTop}>
+				<h4 className='txt'>{entryType}</h4>
+				<IconButton id='add' onClick={handleAdd}>
 					<AddBoxIcon />
 				</IconButton>
-			</View>
+			</div>
 			<Table sx={{ minWidth: 400 }}>
 				<TableHead>
 					<TableRow>
-						<TableCell align='center' style={styles.txt}>
+						<TableCell align='center' className='txt'>
 							Date
 						</TableCell>
-						<TableCell align='center' style={styles.txt}>
+						<TableCell align='center' className='txt'>
 							Item
 						</TableCell>
-						<TableCell align='center' style={styles.txt}>
+						<TableCell align='center' className='txt'>
 							Amount
 						</TableCell>
-						<TableCell align='center' style={styles.txt}>
+						<TableCell align='center' className='txt'>
 							Notes
 						</TableCell>
 					</TableRow>
@@ -211,34 +213,32 @@ const MonthTable = () => {
 				<TableBody>
 					{tabelData().map((row) => (
 						<TableRow key={row._id}>
-							<TableCell align='center' style={styles.txt}>
+							<TableCell align='center' className='txt'>
 								{row.date}
 							</TableCell>
-							<TableCell align='center' style={styles.txt}>
+							<TableCell align='center' className='txt'>
 								{row.item}
 							</TableCell>
-							<TableCell align='center' style={styles.txt}>
+							<TableCell align='center' className='txt'>
 								{row.amount}
 							</TableCell>
-							<TableCell align='center' style={styles.txt}>
-								<TouchableOpacity onPress={() => handleDialog(row.notes)}>
-									<p style={styles.notes}>{row.notes}</p>
+							<TableCell align='center' className='txt'>
+								<TouchableOpacity onClick={() => handleDialog(row.notes)}>
+									<p id='notes'>{row.notes}</p>
 								</TouchableOpacity>
 							</TableCell>
-							<Alert />
+							<Alert alertType='Notes' />
 						</TableRow>
 					))}
 				</TableBody>
-				<TableHead style={styles.footer}>
+				<TableHead id='footer'>
 					<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 						<TableCell>
-							<Text style={styles.outerTxt}>
-								TOTAL {entryType.toUpperCase()}
-							</Text>
+							<h4 className='txt'>TOTAL {entryType.toUpperCase()}</h4>
 						</TableCell>
 						<TableCell></TableCell>
 						<TableCell></TableCell>
-						<TableCell align='right' style={styles.outerTxt}>
+						<TableCell align='right' className='txt'>
 							$
 							{entryType === 'Expenses'
 								? totalExp
@@ -254,40 +254,3 @@ const MonthTable = () => {
 };
 
 export default MonthTable;
-
-const styles = StyleSheet.create({
-	table: {
-		backgroundColor: '#16161a',
-	},
-	tableTop: {
-		height: 60,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderWidth: 2,
-		borderColor: 'green',
-		position: 'relative',
-	},
-	outerTxt: {
-		color: 'whitesmoke',
-		fontWeight: 'bold',
-	},
-	add: {
-		position: 'absolute',
-		right: 20,
-		top: 9,
-		color: 'whitesmoke',
-	},
-	txt: {
-		color: 'whitesmoke',
-	},
-	notes: {
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
-		maxWidth: '222px',
-	},
-	footer: {
-		backgroundColor: 'dodgerblue',
-	},
-});

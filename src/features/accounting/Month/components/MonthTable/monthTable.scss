@@ -1,0 +1,22 @@
+.MuiTableContainer-root.table {
+	background-color: #16161a;
+
+	#add {
+		position: absolute;
+		right: 20px;
+		top: 9px;
+		color: whitesmoke;
+	}
+
+	#notes {
+		color: whitesmoke;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 222px;
+	}
+
+	#footer {
+		background-color: dodgerblue;
+	}
+}

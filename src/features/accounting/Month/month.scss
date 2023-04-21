@@ -1,0 +1,60 @@
+.month {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+
+	.back {
+		position: absolute;
+		top: 20px;
+		left: 30px;
+		color: dodgerblue !important;
+	}
+
+	.header {
+		margin-top: 70px;
+		margin-bottom: 40px;
+	}
+
+	.card {
+		width: 60%;
+		border: none !important;
+		border-radius: 30px !important;
+		padding: 20px !important;
+
+		.row {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+
+			.starting {
+				display: flex;
+				flex-direction: row;
+				// justify-content: center;
+				align-items: center;
+
+				.icon {
+					color: green;
+				}
+			}
+		}
+
+		.rev {
+			width: 100%;
+			text-align: right;
+			margin: 10px 0;
+		}
+	}
+
+	.select {
+		background-color: #16161a;
+		border-radius: 20px;
+		color: whitesmoke;
+		font-size: 15px;
+		margin: 15px 0;
+		padding: 5px;
+		text-align: center;
+	}
+}

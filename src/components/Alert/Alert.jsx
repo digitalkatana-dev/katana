@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import {
 	Button,
 	Dialog,
@@ -8,10 +7,9 @@ import {
 	DialogTitle,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOpen } from '../redux/slices/accountingSlice';
-import React from 'react';
+import { setOpen } from '../../redux/slices/accountingSlice';
 
-const Alert = () => {
+const Alert = ({ alertType }) => {
 	const { open, dialogTxt } = useSelector((state) => state.accounting);
 	const dispatch = useDispatch();
 
@@ -21,9 +19,11 @@ const Alert = () => {
 
 	return (
 		<Dialog open={open} onClose={handleClose}>
-			<DialogTitle>Notes:</DialogTitle>
+			<DialogTitle>{alertType}:</DialogTitle>
 			<DialogContent>
-				<DialogContentText style={styles.txt}>{dialogTxt}</DialogContentText>
+				<DialogContentText style={{ textAlign: 'center' }}>
+					{dialogTxt}
+				</DialogContentText>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={handleClose}>Ok</Button>
@@ -33,9 +33,3 @@ const Alert = () => {
 };
 
 export default Alert;
-
-const styles = StyleSheet.create({
-	txt: {
-		textAlign: 'center',
-	},
-});
