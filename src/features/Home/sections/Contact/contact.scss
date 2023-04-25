@@ -14,7 +14,10 @@
 		align-items: center;
 
 		img {
-			height: 100%;
+			max-width: 80%;
+			background-color: steelblue;
+			padding: 20px;
+			border-radius: 25%;
 		}
 	}
 
