@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import authReducer from './slices/authSlice';
 import accountingReducer from './slices/accountingSlice';
+import contactReducer from './slices/contactSlice';
 import navReducer from './slices/navSlice';
 
 const authPersistConfig = {
@@ -30,6 +31,7 @@ export const store = configureStore({
 	reducer: {
 		auth: persistReducer(authPersistConfig, authReducer),
 		accounting: persistReducer(accountingPersistConfig, accountingReducer),
+		contact: contactReducer,
 		nav: navReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
